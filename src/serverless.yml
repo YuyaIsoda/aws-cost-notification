@@ -1,0 +1,50 @@
+service: ${env:ServiceName}
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  stage: ${env:Stage}
+  region: ${env:Region}
+  runtime: python3.8
+  timeout: 60
+  memorySize: 128
+  tags:
+    developer: 'YuyaIsoda'
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 'budgets:*' # - 'iam:PassRole'
+      Resource: '*'
+  lambdaHashingVersion: '20201221'
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+    slim: true
+    zip: true
+  environment:
+    dev: ${file(./env/dev.yml)}
+    prod: ${file(./env/prod.yml)}
+
+package:
+  include:
+    - handler.py
+  exclude:
+    - '**'
+
+functions:
+  notification:
+    handler: handler.m_notification
+    environment: ${self:custom.environment.${self:provider.stage}}
+    events:
+      - schedule: cron(0 9 ? * MON-FRI *)
+  create:
+    handler: handler.m_create
+    environment: ${self:custom.environment.${self:provider.stage}}
+  delete:
+    handler: handler.m_delete
+    environment: ${self:custom.environment.${self:provider.stage}}
+

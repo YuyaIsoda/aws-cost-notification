@@ -1,0 +1,14 @@
+# Serverless Framework: Settings
+export ServiceName='aws-cost-notification'
+export SLSDIR='serverless'
+export Region='us-east-1'
+export Stage='dev'
+
+# Environment variable
+export AccountId='123456' # Your AWS Account ID
+export BudgetName='aws-cost-notification'
+export LimitUSD='1000' # Budget Limit
+export NtThreshold='80' # Budget Threshold [%] for noification
+export NtEmail='sample1234@gmail.com' # Your email address
+export MSTeamsUrl='https://outlook.office.com/webhook/xxxx' # Your Microsoft Teams Webhook URL
+

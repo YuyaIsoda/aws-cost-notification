@@ -1,0 +1,7 @@
+Region: ${env:Region}
+AccountId: ${env:AccountId}
+BudgetName: ${env:BudgetName}
+LimitUSD: ${env:LimitUSD}
+NtThreshold: ${env:NtThreshold}
+NtEmail: ${env:NtEmail}
+MSTeamsUrl: ${env:MSTeamsUrl}
